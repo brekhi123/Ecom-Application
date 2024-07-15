@@ -1,0 +1,77 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+
+{% block title %}Item List{% endblock %}
+
+{% block content %}
+<!-- Main content -->
+<div class="container mt-5 pt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="main-content">
+                <h2>Item List</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Price</th>
+                            <th>Discount Price</th>
+                            <th>Category</th>
+                            <th>Label</th>
+                            <th>Slug</th>
+                            <th>Description</th>
+                            <th>Small Description</th>
+                            <th>Image</th>
+                            <th>Trending</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in itemlist %}
+                        <tr>
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.price }}</td>
+                            <td>{{ item.discount_price }}</td>
+                            <td>{{ item.get_category_display }}</td>
+                            <td>{{ item.get_label_display }}</td>
+                            <td>{{ item.slug }}</td>
+                            <td>
+                                <span data-toggle="tooltip" data-placement="top" title="{{ item.description|safe }}">
+                                    {{ item.description|truncatechars:50 }}
+                                </span>
+                            </td>
+                            <td>{{ item.small_description }}</td>
+                            <td><img src="{{ item.image.url }}" alt="{{ item.title }}" style="max-width: 100px;"></td>
+                            <td>{% if item.is_trending %} Yes {% else %} No {% endif %}</td>
+                            <td>
+                                <a href="{% url 'edit_item' item.pk %}" class="btn btn-success btn-sm edit-btn">Edit</a>
+                                <a href="{% url 'delete_item' item.pk %}" class="btn btn-danger btn-sm delete-btn">Delete</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="11">No items found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+{% endblock %}
+
+<div class="float-right">
+    <a href="{% url 'add_item' %}" class="btn btn-primary btn-sm">
+        <i class="fas fa-plus"></i> Add Item
+    </a>
+    {% endblock %}
+</div>
+

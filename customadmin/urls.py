@@ -1,0 +1,41 @@
+from django.conf import settings
+from django.urls import path
+from djecommerce.views import *
+
+
+urlpatterns = [
+    path('', admin_login, name="admin-login"),
+    path('dashboard/', dashboard, name="dashboard"),
+    path('addresses/', address_list, name='address_list'),
+    path('addresses/add/', add_address, name='add_address'),
+    path('addresses/<int:pk>/edit/', edit_address, name='edit_address'),
+    path('addresses/<int:pk>/delete/', delete_address, name='delete_address'),
+    path('coupons/', coupon_list, name='coupon_list'),
+    path('coupons/add/', add_coupon, name='add_coupon'),
+    path('coupons/<int:pk>/edit/', edit_coupon, name='edit_coupon'),
+    path('coupons/<int:pk>/delete/', delete_coupon, name='delete_coupon'),
+    path('items/', item_list_admin, name='item_list_admin'),
+    path('items/add/', add_item, name='add_item'),
+    path('items/<int:pk>/edit/', edit_item, name='edit_item'),
+    path('items/<int:pk>/delete/', delete_item, name='delete_item'),
+    path('orderitems/', orderitem_list, name='orderitem_list'),
+    path('orderitems/add/', add_orderitem, name='add_orderitem'),
+    path('orderitems/<int:pk>/edit/', edit_orderitem, name='edit_orderitem'),
+    path('orderitems/<int:pk>/delete/', delete_orderitem, name='delete_orderitem'),
+    path('orders/', order_list, name='order_list'),
+    path('orders/add/', add_order, name='add_order'),
+    path('orders/<int:pk>/edit/', edit_order, name='edit_order'),
+    path('orders/<int:pk>/delete/', delete_order, name='delete_order'),
+    path('payments/', payment_list, name='payment_list'),
+    path('payments/add/', add_payment, name='add_payment'),
+    path('payments/<int:pk>/edit/', edit_payment, name='edit_payment'),
+    path('payments/<int:pk>/delete/', delete_payment, name='delete_payment'),
+    path('refunds/', refund_list, name='refund_list'),
+    path('refunds/add/', add_refund, name='add_refund'),
+    path('refunds/<int:pk>/edit/', edit_refund, name='edit_refund'),
+    path('refunds/<int:pk>/delete/', delete_refund, name='delete_refund'),
+    path('paypaltransactions/', paypal_list, name='paypal_list'),
+    path('paypaltransactions/add/', add_paypal, name='add_paypal'),
+    path('paypaltransactions/<int:pk>/edit/', edit_paypal, name='edit_paypal'),
+    path('paypaltransactions/<int:pk>/delete/', delete_paypal, name='delete_paypal'),
+]

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="payment-box">
+        <h1>Pay with PayPal</h1>
+       <p><strong>Amount to be paid:</strong> ${{ form.amount.value|floatformat:"2" }}</p>
+
+        <div id="form-container">
+            {{ form.render}}
+        </div>
+        <img alt="" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+
+{% block title %}Paypal Transactions {% endblock %}
+
+{% block content %}
+<!-- Main content -->
+<div class="container mt-5 pt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="main-content">
+                <h2>Paypal Transactions</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Transaction ID</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Timestamp</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for paypalitem in paypallist %}
+                        <tr>
+                            <td>{{ paypalitem.user }}</td>
+                            <td>{{ paypalitem.transaction_id }}</td>
+                            <td>{{ paypalitem.amount }}</td>
+                            <td>{{ paypalitem.status }}</td>
+                            <td>{{ paypalitem.timestamp }}</td>
+                            <td>
+                                <a href="{% url 'edit_paypal' paypalitem.pk %}" class="edit-btn btn btn-success btn-sm">Edit</a>
+                                <a href="{% url 'delete_paypal' paypalitem.pk %}" class="delete-btn btn btn-danger btn-sm">Delete</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No paypal transactions found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="float-right">
+    <a href="{% url 'add_paypal' %}" class="btn btn-primary btn-sm">
+        <i class="fas fa-plus"></i> Add Paypal Transaction
+    </a>
+</div>
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!--Main layout-->
+<main class="mt-5 pt-4">
+  <div class="container dark-grey-text mt-5">
+
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+        <img src="{{item.image.url}}" class="img-fluid" alt="">
+        <a href="{{ item.get_absolute_url }}">
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+
+        <!--Content-->
+        <div class="p-4">
+
+          <div class="mb-3">
+            <a href="">
+              <span class="badge purple mr-1">{{ object.get_category_display }}</span>
+            </a>
+          </div>
+
+          <p class="lead">
+            {% if object.discount_price %}
+            <span class="mr-1">
+              <del>$ {{ object.price }} </del>
+            </span>
+            <span> $ {{ object.discount_price }}</span>
+            {% else %}
+            <span> ${{ object.price }} </span>
+            {% endif %}
+          </p>
+
+          <p class="lead font-weight-bold">Description</p>
+
+          <p>{{ object.description }}</p>
+{% comment %} 
+          <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
+            Add to cart
+            <i class="fas fa-shopping-cart ml-1"></i>
+          </a> {% endcomment %}
+
+     {% if request.user.is_authenticated %}
+  <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
+    Add to cart
+    <i class="fas fa-shopping-cart ml-1"></i>
+  </a>
+{% else %}
+  <div class="alert alert-warning" role="alert">
+    You need to be logged in to add items to your cart.
+  </div>
+  <a href="{% url 'account_login' %}" class="btn btn-primary btn-md my-0 p">
+    Login
+    <i class="fas fa-home ml-1"></i>
+  </a>
+{% endif %}
+
+
+
+         {% if object_in_cart %}
+            <a href="{{ object.get_remove_from_cart_url }}" class="btn btn-danger btn-md my-0 p">
+              Remove from cart
+            </a>
+          {% endif %}
+
+        </div>
+        <!--Content-->
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+    <hr>
+
+    <!-- Trending Products Section -->
+    <div class="row wow fadeIn">
+      <div class="col-md-12 text-center">
+        <h4 class="my-4 h4">Trending Products</h4>
+      </div>
+    </div>
+    <div class="row justify-content-around">
+      {% for product in trending_products %}
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card">
+          <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.title }}">
+          <div class="card-body" style="height:220px">
+            <h5 class="card-title">{{ product.title }}</h5>
+            <p class="card-text">{{ product.small_description }}</p>
+            <a href="{{ product.get_absolute_url }}" class="btn btn-primary">View Details</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endblock %}
+    <!-- End Trending Products Section -->
+
+  </div>
+</main>
+<!--Main layout-->
+

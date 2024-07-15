@@ -1,0 +1,21 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+
+{% block title %}Add/Edit Item{% endblock %}
+
+{% block content %}
+<div class="container mt-5 pt-4">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="main-content">
+                <h2>Add/Edit Item</h2>
+                <form method="post" enctype="multipart/form-data" class="item-form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Save Item</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

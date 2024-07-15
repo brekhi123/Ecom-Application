@@ -1,0 +1,59 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+
+{% block title %}Address List{% endblock %}
+
+{% block content %}
+<!-- Main content -->
+<div class="container mt-5 pt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="main-content">
+                <h2>Address List</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Street Address</th>
+                            <th>Apartment Address</th>
+                            <th>Country</th>
+                            <th>ZIP Code</th>
+                            <th>Address Type</th>
+                            <th>Default</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for address in addresses %}
+                        <tr>
+                            <td>{{ address.street_address }}</td>
+                            <td>{{ address.apartment_address }}</td>
+                            <td>{{ address.country }}</td>
+                            <td>{{ address.zip }}</td>
+                            <td>{{ address.get_address_type_display }}</td>
+                            <td>{% if address.default %} Yes {% else %} No {% endif %}</td>
+                            <td>
+                                <a href="{% url 'edit_address' address.pk %}" class="btn btn-success btn-sm edit-btn">Edit</a>
+                                <a href="{% url 'delete_address' address.pk %}" class="btn btn-danger btn-sm delete-btn">Delete</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7">No addresses found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Address Button -->
+<div class="float-right">
+    <a href="{% url 'add_address' %}" class="btn btn-primary btn-sm">
+        <i class="fas fa-plus"></i> Add Address
+    </a>
+    {% endblock %}
+
+</div>
+
